@@ -12,19 +12,16 @@ class shape:
     def triangle(self):
         area = self.x * self.y / 2
         print(area)
-
         return area
 
     def rectangle(self):
         area = self.x * self.y
         print(area)
-
         return area
 
     def square(self):
         area = self.x * self.x
         print(area)
-
         return area
 
 
