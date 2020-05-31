@@ -10,7 +10,6 @@
 using namespace std;
 
 float exp() {
-  // |e - d|を打ち切り誤差、|e - d|/|d|を相対打ち切り誤差とする。
   float d = 1.0;
   float e = 1.0;
   float tay = 1.0;
@@ -24,6 +23,6 @@ float exp() {
 }
 
 int main() {
-  cout << exp() << endl;
+  cout << fixed << setprecision(15) << exp() << endl;
   cout << exp(-5) << endl;
 }
