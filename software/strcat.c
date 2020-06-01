@@ -15,6 +15,7 @@ char *Strcat(char *s, char *p) {
 
 int main() {
   char s[10] = "Hi";
+  printf("s = %s\n", s);
   char *p = Strcat(s, "ramen!");
   printf("s = %s\n", s);
 }
