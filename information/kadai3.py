@@ -49,6 +49,6 @@ print("zeros.size -> " + str(a.size))
 print("zeros.nbytes -> " + str(a.nbytes))
 
 a = np.zeros((3,3))
-print("zeros ->" * str(a))
+print("zeros ->\n" + str(a))
 
 
