@@ -14,7 +14,8 @@ int main() {
 
     //二次方程式での解と係数の関係でわかるで
     x2 = c / (a * x1);
-    cout << x1 << ":" << x2 << endl;
+    cout << "x1 = " << x1 << endl;
+    cout << "x2 = " << x2 << endl;
   } else {
     cout << "Im" << endl;
   }

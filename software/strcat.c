@@ -1,15 +1,13 @@
 #include <stdio.h>
-#include <string.h>
 
 char *Strcat(char *s, char *p) {
-  char *s_ptr = s;
-  while (*s_ptr != '\0') {
-    s_ptr++;
+  while (*s != '\0') {
+    *s;
   }
   while (*p != '\0') {
-    *s_ptr++ = *p++;
+    *s++ = *p++;
   }
-  *s_ptr = '\0';
+  *s = '\0';
   return s;
 }
 

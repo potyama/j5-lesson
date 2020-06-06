@@ -4,4 +4,7 @@
 #include <iostream>
 using namespace std;
 
-int main() { cout << fixed << setprecision(10) << FLT_EPSILON << endl; }
+int main() {
+  cout << fixed << setprecision(10) << "machineEpsilon = " << FLT_EPSILON
+       << endl;
+}
