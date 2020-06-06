@@ -1,10 +1,10 @@
 {
-    "python.pythonPath": "C:\\Users\\potyama\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
-    "files.associations": {
-        "iostream": "cpp",
-        "ios": "cpp",
-        "ostream": "cpp",
-        "iomanip": "cpp",
-        "cmath": "cpp"
-    }
+  "python.pythonPath": "C:\\Users\\potyama\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+  "files.associations": {
+    "iostream": "cpp",
+    "ios": "cpp",
+    "ostream": "cpp",
+    "iomanip": "cpp",
+    "cmath": "cpp"
+  }
 }
