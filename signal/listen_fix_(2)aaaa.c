@@ -25,12 +25,18 @@ Go ahead and modify this program for your own purposes.
 const int NUM_SAMPLES = (WAVFILE_SAMPLES_PER_SECOND * 2);
 
 int main() {
+  int p, q;
+
   short waveform[NUM_SAMPLES];
   char SoundFile[256];
   double frequency;
   int VolumeLevel;
   printf("Frequency\n");
   scanf("%lf", &frequency);
+  printf("p = \n");
+  scanf("%d", &p);
+  printf("q = \n");
+  scanf("%d", &q);
   printf("Select Volume Level\n");
   scanf("%d", &VolumeLevel);
   printf("Sound File Name\n");
@@ -38,9 +44,12 @@ int main() {
   int volume = 1000 * VolumeLevel;
   int length = NUM_SAMPLES;
 
-  for (i = 0; i < length; i++) {
-    double t = (double)i / WAVFILE_SAMPLES_PER_SECOND;
-    waveform[i] = volume * sin(frequency * t * 2 * M_PI);
+  for (int i = 0; i < length; i++) {
+    for (int j = p; j < q; j++) {
+      double t = (double)i / WAVFILE_SAMPLES_PER_SECOND;
+      waveform[i] += volume * ((-2 / M_PI) * (pow(-1, j + 1) / j) *
+                               sin(j * frequency * t * 2 * M_PI));
+    }
   }
 
   FILE* f = wavfile_open(strcat(SoundFile, ".wav"));
