@@ -6,7 +6,7 @@ import re
 
 if __name__ == "__main__":
     data = pd.read_csv(
-        "C:/Users/potyama/j5-lesson/intelligent/data/lsmCompe_train.csv", names=["x", "y"])
+        "C:Users/potyama/j5-lesson/intelligent/3/data/lsmCompe_train.csv", names=["x", "y"])
     data_list = data.values
     # print(data)
 
