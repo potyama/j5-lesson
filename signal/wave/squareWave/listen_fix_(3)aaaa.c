@@ -41,10 +41,9 @@ int main()
 	  {
 		double t = (double) i / WAVFILE_SAMPLES_PER_SECOND;
 		tempvalue=0;
-		for(j=1;j<=TotalHarmonics;j++)
-		  {
-		  tempvalue=tempvalue+(sin(j*frequency*2*M_PI -1) * t)/(2*j-1);
-		  }
+		for(j=1;j<=TotalHarmonics;j++){
+            tempvalue=tempvalue+(4 * sin((2*j-1)*frequency*M_PI * t))/(2*j-1 * M_PI);
+        }
 		waveform[i]=volume*tempvalue;
 	  }
 
