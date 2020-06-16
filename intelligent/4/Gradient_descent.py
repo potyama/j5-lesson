@@ -5,9 +5,6 @@ def func(a):
     y = (a+1.0)**2 * (a-1.0)**2
     return y
 
-a = 1.2
-
-eta = 0.01
 
 def dfunc(a):
     y = 4*a * (a-1.0) * (a+1.0)
@@ -16,6 +13,8 @@ def dfunc(a):
 para_x = []
 para_y =[]
 
+a= 1.2
+eta = 0.01
 epsilon = 0.001
 old_para = a
 
