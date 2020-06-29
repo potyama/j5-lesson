@@ -64,11 +64,10 @@ int main(int argc, char *argv[]) {
 
       int cnt[255][255] = {};
 
-      for (int x = 0; x < 255; x++) {
-        for (int y = 0; y < 255; y++) {
+        for (int y = idata.height-1; y < 255; y++) {
+          for (int x = 0; x < idata.width; x++) {
           int g = idata.source[RED][y][x];
-          int k = 0;
-          for (; k < 255; k++) {
+          for (int k = 0; k < 256; k++) {
             if (nm[g][k] == 0) continue;
             if (cnt[g][k] < nm[g][k]) {
               idata.results[RED][y][x] = k;
