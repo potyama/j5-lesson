@@ -1,10 +1,17 @@
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
+#ifndef DEF_H
+
+
+#include "def.h"
+#define DEF_H
+
+#endif
+#include "var.h"
 
 #include "bmpfile.h"
-#include "def.h"
-#include "var.h"
 
 int main(int argc, char *argv[]) {
   imgdata idata;
@@ -13,7 +20,7 @@ int main(int argc, char *argv[]) {
 
   double LUT[270], hist[270];
   double ave = (idata.height * idata.width) / 255;
-  int nm[255][255] = {};
+  int nm[256][256] = {};
   // 例題プログラム
   // 　BMPファイルをコピーするプログラム
   //
@@ -31,7 +38,7 @@ int main(int argc, char *argv[]) {
       printf("指定コピー元ファイル%sが見つかりません\n", argv[1]);
     else {
       /* 課題8 : 入力画像をシグモイド変換するプログラム */
-      for (int i = 0; i < 255; i++) {
+      for (int i = 0; i < 256; i++) {
         hist[i] = 0;
       }
       for (y = 0; y < idata.height; y++) {
@@ -43,7 +50,7 @@ int main(int argc, char *argv[]) {
 
       for (int i = 0; i < 255; i++) {
         if (nm[i][i] < ave) {
-          for (int j = 0; nm[i][i] != ave; j++) {
+          for (int j = 0; ; j++) {
             int tmp = 0;
             if (ave - nm[i][i] > nm[i + j][i + j]) {
               tmp = nm[i + j][i + j];
@@ -62,7 +69,7 @@ int main(int argc, char *argv[]) {
         }
       }
 
-      int cnt[255][255] = {};
+      int cnt[256][256] = {};
 
         for (int y = idata.height-1; y < 255; y++) {
           for (int x = 0; x < idata.width; x++) {
