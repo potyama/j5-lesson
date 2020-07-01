@@ -1,5 +1,7 @@
 *.xml
 *.exe
+*.out
 
 /venv/*
 /.idea/*
+/.vscode/*
