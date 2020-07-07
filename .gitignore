@@ -1,6 +1,8 @@
 *.xml
 *.exe
 *.json
+*.out
 
-/venv/*
-/.idea/*
+/venv
+/.idea
+/.vscode
