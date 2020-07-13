@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
                     }else if(y == 255){
                         sum_data = mean_value_filter(idata, 3, x, y, -1, 0, -1, 0);
                     }else{
-                        sum_data　= mean_value_filter(idata, 5, x, y, -1, 1, -1, 0);
+                        sum_data = mean_value_filter(idata, 5, x, y, -1, 1, -1, 0);
                     }
                 }else if(y == 0){
                     sum_data = mean_value_filter(idata, 5, x, y, 0, 1, -1, 1);
