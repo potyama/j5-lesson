@@ -40,12 +40,13 @@ int main(int argc, char *argv[]) {
             for(int y = 0; y < idata.height; y++){
                 for(int x = 0; x < idata.width; x++){
                     double data = 0;
+
                     for(int j = 0;j < N; j++){
                         for(int i = 0; i < N; i++){
                             int x_coordinate = i - (N-1)/2;
                             int y_coordinate = j - (N-1)/2;
 
-                            int sum_data = 0;
+                            double sum_data;
                             if(y + y_coordinate < 0
                             || y + y_coordinate >= idata.height
                             || x + x_coordinate < 0
