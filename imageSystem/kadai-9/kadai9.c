@@ -11,24 +11,10 @@
 #include "var.h"
 #include "bmpfile.h"
 
-int mean_value_filter(imgdata idata, int N, int x, int y, int h_start, int h_stop, int w_start,int w_stop){
-    int n = 5;
-    double sum_data=0;
-    for(int i = h_start; i <= h_stop; i++){
-        for(int j = w_start; j <= w_stop; j++){
-            sum_data += idata.source[RED][y+i][x+j];
-        }
-    }
-
-    sum_data += (idata.source[RED][y][x]*(n-1));
-    sum_data /= (n + N);
-
-    return sum_data;
-}
-
 int main(int argc, char *argv[]) {
     imgdata idata;
-    double c;
+    double n = 5;
+    double N = 3;
 
   // 例題プログラム
   // 　BMPファイルをコピーするプログラム
@@ -46,49 +32,38 @@ int main(int argc, char *argv[]) {
             printf("指定コピー元ファイル%sが見つかりません\n",argv[1]);
         else {
         /* 課題9 : 入力画像を平均値フィルタ処理するプログラム */
-        for (int y = 0; y < idata.height; y++){
-            for (int x = 0; x < idata.width; x++){
-                double sum_data = 0;
-                if(x == 0){
-                    if(y == 0){
-                        sum_data = mean_value_filter(idata, 3, x, y, 0, 1, 0, 1);
-                    }else if(y == 255){
-                        sum_data = mean_value_filter(idata, 3, x, y, -1, 0, 0, 1);
-                    }else{
-                        sum_data = mean_value_filter(idata, 5, x, y, -1, 1, 0, 1);
-                    }
-                }else if(x == 255){
-                    if(y == 0){
-                        sum_data = mean_value_filter(idata, 3, x, y, 0, 1, -1, 0);
-                    }else if(y == 255){
-                        sum_data = mean_value_filter(idata, 3, x, y, -1, 0, -1, 0);
-                    }else{
-                        sum_data = mean_value_filter(idata, 5, x, y, -1, 1, -1, 0);
-                    }
-                }else if(y == 0){
-                    sum_data = mean_value_filter(idata, 5, x, y, 0, 1, -1, 1);
-                }else if(y == 255){
-                    sum_data = mean_value_filter(idata, 5, x, y, -1, 0, -1, 1);
-                }else{
-                    //関数に渡すよりも、ここで直接処理したほうが早い(自社調べ)
-                    int N = 8, n = 5;
-                    for(int i=(-1); i<2; i++){
-                        for(int j=(-1); j<2; j++){
-                            sum_data += idata.source[RED][y+i][x+j];
+            for(int y = 0; y < idata.height; y++){
+                for(int x = 0; x < idata.width; x++){
+                    int check = 0;
+                    double sum_data = 0;
+
+                    for(int j = 0;j < N; j++){
+                        for(int i = 0; i < N; i++){
+                            int x_coordinate = i - (N-1)/2;
+                            int y_coordinate = j - (N-1)/2;
+                            if(y + y_coordinate < 0
+                            || y + y_coordinate >= idata.height
+                            || x + x_coordinate < 0
+                            || x + x_coordinate >= idata.width){
+                                check++;
+                                continue;
+                            }
+                            if(x_coordinate == 0 && y_coordinate == 0){
+                                sum_data += idata.source[RED][y + y_coordinate][x + x_coordinate] * n;
+                            }else{
+                                sum_data += idata.source[RED][y + y_coordinate][x + x_coordinate];
+                            }
                         }
                     }
-                    sum_data += (idata.source[RED][y][x]*(n-1));
-                    sum_data /= n + N;
+                    int tmp_N = (N*N - check)-1.0;
+                    double result = sum_data / (tmp_N + n);
+                    idata.results[RED][y][x] = result;
+                    idata.results[GREEN][y][x] = result;
+                    idata.results[BLUE][y][x] = result;
                 }
-
-                idata.results[RED][y][x] = sum_data;
-                idata.results[GREEN][y][x] = sum_data;
-                idata.results[BLUE][y][x] = sum_data;
             }
         }
-
         if (writeBMPfile(argv[2], &idata) > 0)
             printf("コピー先ファイル%sに保存できませんでした\n",argv[2]);
         }
-    }
 }
