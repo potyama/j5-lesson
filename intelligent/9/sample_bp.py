@@ -94,19 +94,23 @@ for t in range(TIME):
         ##################
 
         # ここに更新式を書く
+
         #中間層-出力層
-        deltaa = (outa - tha)* EPSILON *(1 - outa)*outa
-        wab = wab - ETA * deltaa * outb
-        wac = wac - ETA * deltaa * outc
+        deltaa = (outa - tha) * EPSILON * (1 - outa) * outa
+        wab = wab - ETA * deltaa * outa
+        wac = wac - ETA * deltaa * outa
 
         #中間層以下
-        deltab = deltaa * wab * (outb - thb) * EPSILON *(1 - outb) * outb
-        wbd = wbd * ETA * deltab * outb
-        wbe = wbe * ETA * deltab * outb
+        deltab = (outb - thb) * EPSILON * (1 - outb) * outb
+        deltac = (outc - thc) * EPSILON * (1 - outc) * outc
 
-        deltac = deltaa * wac *(outc - thc) * EPSILON * (1 - outc) * outc
-        wcd = wcd * ETA * deltac * outc
-        wce = wce * ETA * deltac * outc
+        deltab = (deltab * wab) * EPSILON * (1 - outa) * outa
+        wbd = wbd - ETA * deltab * outb
+        wbe = wbe - ETA * deltab * outb
+
+        deltac = (deltac * wac) * EPSILON * (1 - outa) * outa
+        wcd = wcd - ETA * deltac * outc
+        wce = wce - ETA * deltac * outc
 
 
     # 誤差曲線のグラフ表示用の変数
