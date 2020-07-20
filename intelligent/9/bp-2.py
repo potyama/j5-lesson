@@ -104,14 +104,11 @@ for t in range(TIME):
         deltab = (outb - thb) * EPSILON * (1 - outb) * outb
         deltac = (outc - thc) * EPSILON * (1 - outc) * outc
 
-        deltab = (deltab * wab) * EPSILON * (1 - outa) * outa
         wbd = wbd - ETA * deltab * outb
         wbe = wbe - ETA * deltab * outb
 
-        deltac = (deltac * wac) * EPSILON * (1 - outa) * outa
         wcd = wcd - ETA * deltac * outc
         wce = wce - ETA * deltac * outc
-
 
     # 誤差曲線のグラフ表示用の変数
     x.append(t)
