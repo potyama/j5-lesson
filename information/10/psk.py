@@ -8,8 +8,8 @@ def psk(signal):
     t = np.arange(0, N, 1)
     fc = 2
 
-    psk_0 = np.sin(2*np.pi*t/N * fc)
-    psk_1 = np.sin((2*np.pi*t/N * fc) + np.pi)
+    psk_0 = np.cos(2*np.pi*t/N * fc)
+    psk_1 = np.cos((2*np.pi*t/N * fc) + np.pi)
 
     for i in signal:
         if i == -1:
@@ -28,8 +28,8 @@ def psk(signal):
 
     return psk_signal
 
-signal = [1, -1, -1, -1, 1, 1, 1, -1]
 
+signal = [1, -1, -1, -1, 1, 1, 1, -1]
 
 plt.plot(range(len(psk(signal))), psk(signal))
 plt.show()
