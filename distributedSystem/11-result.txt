@@ -1,0 +1,56 @@
+(1)
+4.システムのデフォルト
+hi, id = 1
+hi, id = 3
+hi, id = 0
+hi, id = 2
+
+3.export OMP_NUM_THREADS=2
+hi, id = 1
+hi, id = 0
+
+2.omp_set_num_threads(3)
+hi, id = 1
+hi, id = 2
+hi, id = 0
+
+1. #pragma omp parallel num_threads(4)
+hi, id = 3
+hi, id = 1
+hi, id = 0
+hi, id = 2
+
+ソースコード
+#include <stdio.h>
+#include <omp.h>
+
+int main(){
+    omp_set_num_threads(3);
+    #pragma omp parallel num_threads(4)
+    {
+        printf("hi, id = %d\n", omp_get_thread_num());
+    }
+}
+
+(2)
+#include <stdio.h>
+#include <omp.h>
+
+int main(){
+    int a[1010],b[1010];
+    #pragma omp parallel for
+    for (int i = 0;i < 1000;i++){
+        a[i] = i;
+        b[i] = a[i] * a[i];
+        printf("b[%d]=%d\n", i,b[i]);
+    }
+}
+結果を一部抜粋
+b[1]=1
+b[2]=4
+b[3]=9
+b[4]=16
+b[500]=250000
+
+(3)
+１つ目のprinfの処理が終わる前に2つめのprintfを実行してしまっている？
