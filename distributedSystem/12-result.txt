@@ -1,0 +1,22 @@
+1.
+#include <stdio.h>
+#include <omp.h>
+
+#define N 1000000
+
+int main(){
+    int i, l, count0=0;
+    int a[N];
+
+    for(i = 0; i < N; i++)a[i] = i % 100;
+
+    #pragma omp parallel for reduction(+:count0)num_threads(4)
+    for(i = 0;i < N;i++){
+        count0 += a[i];
+    }
+    printf("count0_ave:%d\n", count0/N);
+}
+
+2.
+スレッドのうちの一つが実行終わってi++しようと思ったら、もう一つのスレッドの実行が終わってi++をしてしまったから。
+結果、iが+2された状態で新たな処理を実行してしまった。
