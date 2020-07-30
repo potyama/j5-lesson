@@ -11,7 +11,7 @@ def Gaussian_elimination(A, n):
                 A[k][j] -= A[i][j] * A[k][i]
                 cnt_calc += 1
 
-    X = np.zeros(n)
+    X = np.zeros((1, N), dtype=float)
     for i in reversed(range(n)):
         X[0][i] = A[i][n]
 
@@ -24,10 +24,10 @@ def Gaussian_elimination(A, n):
 
 if __name__ == '__main__':
 
-    #A = pd.read_csv('A100.csv', header=None)
-    #B = pd.read_csv('b100.csv', header=None)
-    A = pd.read_csv('A1000.csv', header=None)
-    B = pd.read_csv('b1000.csv', header=None)
+    A = pd.read_csv('A100.csv', header=None)
+    B = pd.read_csv('b100.csv', header=None)
+    #A = pd.read_csv('A1000.csv', header=None)
+    #B = pd.read_csv('b1000.csv', header=None)
 
     A = np.array(A)
     B = np.array(B)
