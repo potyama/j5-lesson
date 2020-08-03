@@ -13,7 +13,6 @@
 
 int main(int argc, char *argv[]) {
     imgdata idata;
-    double N = 3;
 
     double h[3][3] = {
         {1.0, 0.0, -1.0},
@@ -42,20 +41,20 @@ int main(int argc, char *argv[]) {
         if (readBMPfile(argv[1], &idata) > 0)
             printf("指定コピー元ファイル%sが見つかりません\n",argv[1]);
         else {
-        /* 課題9 : 入力画像を平均値フィルタ処理するプログラム */
+        /* 課題12 : 入力画像をSobelフィルタするプログラム */
             for(int y = 0; y < idata.height; y++){
                 for(int x = 0; x < idata.width; x++){
-                    double fx = 0,fy = 0;
+                    double fx = 0;
+                    double fy = 0;
+                    double N = 3;
+
                     for(int j = 0;j < N; j++){
                         for(int i = 0; i < N; i++){
                             int x_coordinate = i - (N-1)/2;
                             int y_coordinate = j - (N-1)/2;
 
                             int sum_data = 0;
-                            if(y + y_coordinate < 0
-                            || y + y_coordinate >= idata.height
-                            || x + x_coordinate < 0
-                            || x + x_coordinate >= idata.width){
+                            if(y + y_coordinate < 0 || y + y_coordinate >= idata.height || x + x_coordinate < 0 || x + x_coordinate >= idata.width){
                                 sum_data = 0;
                             }else{
                                 sum_data = idata.source[RED][y + y_coordinate][x + x_coordinate];

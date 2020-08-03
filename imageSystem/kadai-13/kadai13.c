@@ -29,9 +29,7 @@ int main(int argc, char *argv[]) {
         if (readBMPfile(argv[1], &idata) > 0)
             printf("指定コピー元ファイル%sが見つかりません\n",argv[1]);
         else {
-        /* 課題9 : 入力画像を平均値フィルタ処理するプログラム */
-
-            double N = 3;
+        /* 課題13 : 入力画像をラプラシアンフィルタ処理するプログラム */
 
             double laplacian[3][3] = {
                 {0.0, 1.0, 0.0},
@@ -42,7 +40,7 @@ int main(int argc, char *argv[]) {
             for(int y = 0; y < idata.height; y++){
                 for(int x = 0; x < idata.width; x++){
                     double data = 0;
-
+                    double N = 3;
                     for(int j = 0;j < N; j++){
                         for(int i = 0; i < N; i++){
                             int x_coordinate = i - (N-1)/2;
@@ -50,15 +48,11 @@ int main(int argc, char *argv[]) {
 
                             int sum_data;
 
-                            if(y + y_coordinate < 0
-                            || y + y_coordinate >= idata.height
-                            || x + x_coordinate < 0
-                            || x + x_coordinate >= idata.width){
+                            if(y + y_coordinate < 0 || y + y_coordinate >= idata.height || x + x_coordinate < 0 || x + x_coordinate >= idata.width){
                                 sum_data = 0;
                             }else{
                                 sum_data = idata.source[RED][y + y_coordinate][x + x_coordinate];
                             }
-
                             data += sum_data * laplacian[j][i];
                         }
                     }
