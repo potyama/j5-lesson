@@ -59,6 +59,15 @@ print()
 x = []
 y = []
 
+sum_deltaa = 0.0
+sum_deltab = 0.0
+sum_deltac = 0.0
+sum_wab = 0.0
+sum_wac = 0.0
+sum_wbd = 0.0
+sum_wbe = 0.0
+sum_wcd = 0.0
+sum_wce = 0.0
 # 学習
 for t in range(TIME):
 
@@ -97,20 +106,31 @@ for t in range(TIME):
 
         #中間層-出力層
         deltaa = (outa - tha) * EPSILON * (1 - outa) * outa
-        wab = wab - ETA * deltaa * outa
-        wac = wac - ETA * deltaa * outa
-
-        #中間層以下
         deltab = (outb - thb) * EPSILON * (1 - outb) * outb
         deltac = (outc - thc) * EPSILON * (1 - outc) * outc
 
-        wbd = wbd - ETA * deltab * outb
-        wbe = wbe - ETA * deltab * outb
+        sum_deltaa += deltaa
+        sum_deltab += deltab
+        sum_deltac += deltac
+        sum_wab += deltaa * outa
+        sum_wac += deltaa * outa
+        sum_wbd += deltab * outb
+        sum_wbe += -deltab * outb
+        sum_wcd += -deltac * outc
+        sum_wce += -deltac * outc
 
-        wcd = wcd - ETA * deltac * outc
-        wce = wce - ETA * deltac * outc
+    wab -= ETA * sum_wab
+    wac -= ETA * sum_wac
+    wbd -= ETA * sum_wbd
+    wbe -= ETA * sum_wbe
+    wcd -= ETA * sum_wcd
+    wce -= ETA * sum_wce
 
+    tha -= ETA * sum_deltaa
+    thb -= ETA * sum_deltab
+    thc -= ETA * sum_deltac
     # 誤差曲線のグラフ表示用の変数
+
     x.append(t)
     y.append(errorAll)
 
@@ -135,6 +155,3 @@ print('tha=', tha)
 print('thb=', thb)
 print('thc=', thc)
 print()
-
-plt.plot(x, y)
-plt.show()
