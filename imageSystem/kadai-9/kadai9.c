@@ -13,8 +13,6 @@
 
 int main(int argc, char *argv[]) {
     imgdata idata;
-    double n = 5;
-    double N = 3;
 
   // 例題プログラム
   // 　BMPファイルをコピーするプログラム
@@ -36,15 +34,14 @@ int main(int argc, char *argv[]) {
                 for(int x = 0; x < idata.width; x++){
                     int check = 0;
                     double sum_data = 0;
+                    double n = 5;
+                    double N = 3;
 
                     for(int j = 0;j < N; j++){
                         for(int i = 0; i < N; i++){
                             int x_coordinate = i - (N-1)/2;
                             int y_coordinate = j - (N-1)/2;
-                            if(y + y_coordinate < 0
-                            || y + y_coordinate >= idata.height
-                            || x + x_coordinate < 0
-                            || x + x_coordinate >= idata.width){
+                            if(y + y_coordinate < 0 || y + y_coordinate >= idata.height || x + x_coordinate < 0 || x + x_coordinate >= idata.width){
                                 check++;
                                 continue;
                             }

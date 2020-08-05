@@ -17,7 +17,6 @@ int compare_double(const void* a, const void* b){
 
 int main(int argc, char *argv[]) {
     imgdata idata;
-    double N = 3;
 
   // 例題プログラム
   // 　BMPファイルをコピーするプログラム
@@ -34,25 +33,22 @@ int main(int argc, char *argv[]) {
         if (readBMPfile(argv[1], &idata) > 0)
             printf("指定コピー元ファイル%sが見つかりません\n",argv[1]);
         else {
-        /* 課題9 : 入力画像を平均値フィルタ処理するプログラム */
+        /* 課題10 : 入力画像をメディアンフィルタ処理するプログラム */
             for(int y = 0; y < idata.height; y++){
                 for(int x = 0; x < idata.width; x++){
                     int check = 0;
-                    double data[9] = {};
                     int cnt = 0;
+                    double N = 3;
+                    double data[9] = {};
 
                     for(int j = 0;j < N; j++){
                         for(int i = 0; i < N; i++){
                             int x_coordinate = i - (N-1)/2;
                             int y_coordinate = j - (N-1)/2;
-                            if(y + y_coordinate < 0
-                            || y + y_coordinate >= idata.height
-                            || x + x_coordinate < 0
-                            || x + x_coordinate >= idata.width){
+                            if(y + y_coordinate < 0 || y + y_coordinate >= idata.height || x + x_coordinate < 0 || x + x_coordinate >= idata.width){
                                 check++;
                                 continue;
                             }
-
                             data[cnt] = idata.source[RED][y + y_coordinate][x + x_coordinate];
                             cnt++;
                         }

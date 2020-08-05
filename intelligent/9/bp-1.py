@@ -139,5 +139,3 @@ print('thb=', thb)
 print('thc=', thc)
 print()
 
-plt.plot(x, y)
-plt.show()

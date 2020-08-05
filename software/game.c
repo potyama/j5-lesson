@@ -45,10 +45,14 @@ void updateGrade(board *main_character, int isFlag){
         main_character->school_grade++;
         main_character->turn++;
     }else{
+        main_character->count_repeat_year++;
         main_character->turn++;
     }
 }
 
+void message(){
+    printf("Good Bye:)\n");
+}
 
 int main(){
 
@@ -56,7 +60,10 @@ int main(){
     dice first = {};
     checkGrade(player);
 
-    int isFlag = shouldPromotion(first);
-    updateGrade(&player, isFlag);
-    checkGrade(player);
+    while(player.school_grade != 5){
+        int isFlag = shouldPromotion(first);
+        updateGrade(&player, isFlag);
+        checkGrade(player);
+    }
+    message();
 }
