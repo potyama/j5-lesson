@@ -9,10 +9,10 @@ def qpsk(signal):
     t = np.arange(0, N, 1)
     fc = 2
 
-    qpsk_0 = np.cos(2 * np.pi * t / N * fc)
-    qpsk_1 = np.sin(2 * np.pi * t / N * fc)
-    qpsk_2 = -np.cos(2 * np.pi * t / N * fc)
-    qpsk_3 = -np.sin(2 * np.pi * t / N * fc)
+    qpsk_0 = np.cos(2 * np.pi * t * fc)
+    qpsk_1 = np.sin(2 * np.pi * t * fc)
+    qpsk_2 = -np.cos(2 * np.pi * t * fc)
+    qpsk_3 = -np.sin(2 * np.pi * t * fc)
 
     for i in signal:
         if i == 0:
