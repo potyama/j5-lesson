@@ -102,16 +102,17 @@ for t in range(TIME):
         deltaa = (outa - tha) * EPSILON * (1 - outa) * outa
         wab = wab - ETA * deltaa * outb
         wac = wac - ETA * deltaa * outc
-
+        tha = tha - ETA * deltaa
         # 中間層以下
         deltab = deltaa * wab * EPSILON * (1 - outb) * outb
         wbd = wbd - ETA * deltab * outd
         wbe = wbe - ETA * deltab * oute
+        thb = thb - ETA * deltab
 
         deltac = deltaa * wac * EPSILON * (1 - outc) * outc
         wcd = wcd - ETA * deltac * outd
         wce = wce - ETA * deltac * oute
-
+        thc = thc - ETA * deltac
     # 誤差曲線のグラフ表示用の変数
     x.append(t)
     y.append(errorAll)
