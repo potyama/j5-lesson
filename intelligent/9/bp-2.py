@@ -59,15 +59,17 @@ print()
 x = []
 y = []
 
-sum_deltaa = 0.0
-sum_deltab = 0.0
-sum_deltac = 0.0
+sum_tha = 0.0
+sum_thb = 0.0
+sum_thc = 0.0
 sum_wab = 0.0
 sum_wac = 0.0
 sum_wbd = 0.0
 sum_wbe = 0.0
 sum_wcd = 0.0
 sum_wce = 0.0
+
+
 # 学習
 for t in range(TIME):
 
@@ -106,36 +108,38 @@ for t in range(TIME):
 
         #中間層-出力層
         deltaa = (outa - tha) * EPSILON * (1 - outa) * outa
-        deltab = (outb - thb) * EPSILON * (1 - outb) * outb
-        deltac = (outc - thc) * EPSILON * (1 - outc) * outc
+        deltab = deltaa * wab * EPSILON * (1 - outb) * outb
+        deltac = deltaa * wac * EPSILON * (1 - outc) * outc
 
-        sum_deltaa += deltaa
-        sum_deltab += deltab
-        sum_deltac += deltac
-        sum_wab += deltaa * outa
-        sum_wac += deltaa * outa
-        sum_wbd += deltab * outb
-        sum_wbe += -deltab * outb
-        sum_wcd += -deltac * outc
-        sum_wce += -deltac * outc
+        sum_tha += - ETA * deltaa
+        sum_thb += - ETA * deltab
+        sum_thc += - ETA * deltac
+        sum_wab += - ETA * deltaa * outb
+        sum_wac += - ETA * deltaa * outc
+        sum_wbd += - ETA * deltab * outd
+        sum_wbe += - ETA * deltab * oute
+        sum_wcd += - ETA * deltac * outd
+        sum_wce += - ETA * deltac * oute
 
-    wab -= ETA * sum_wab
-    wac -= ETA * sum_wac
-    wbd -= ETA * sum_wbd
-    wbe -= ETA * sum_wbe
-    wcd -= ETA * sum_wcd
-    wce -= ETA * sum_wce
-
-    tha -= ETA * sum_deltaa
-    thb -= ETA * sum_deltab
-    thc -= ETA * sum_deltac
     # 誤差曲線のグラフ表示用の変数
 
     x.append(t)
     y.append(errorAll)
 
+wab += sum_wab
+wac += sum_wac
+wbd += sum_wbd
+wbe += sum_wbe
+wcd += sum_wcd
+wce += sum_wce
+
+tha += sum_tha
+thb += sum_thb
+thc += sum_thc
+
 # 学習後の出力
 print("学習後の出力")
+print(errorAll)
 print(outall[0])
 print(outall[1])
 print(outall[2])
