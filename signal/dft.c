@@ -50,8 +50,6 @@ int main(){
             printf ("X[%d]=%.3f%.3fj\n",k,X[k].Re,X[k].Im);
         else
             printf ("X[%d]=%.3f+%.3fj\n",k,X[k].Re,X[k].Im);
-        
-
     }
     //IDFTしてみよう
     for (k = 0; k < N; k++){
