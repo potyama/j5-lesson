@@ -22,18 +22,26 @@ void checkGrade(board person){
     printf("\n\n");
 }
 
-int shouldPromotion(dice addDice){
+int shouldPromotion(dice addDice, board player){
     srand((unsigned)time(NULL));
+    int cnt=0;
 
-    for(int i = 0;i < 16; i++){
-       addDice.sum_dices += (rand()% 6) + 1;
+    for(int i = 0;i < 10; i++){
+        int a = ((rand()% 10 * player.school_grade) + 1);
+        int b = ((rand()% 10 * player.school_grade) + 1);
+        int c;
+       printf("%d + %d = ?\n", a, b);
+       scarf("%d", &c);
+       if(a + b == c)cnt++;
     }
+
+    addDice.sum_dices = cnt * 10;
+
     if(addDice.sum_dices >= 60){
         printf("Your test score was %d. Difference is %d points.\nCongratulations. You've been promoted.\n", addDice.sum_dices, addDice.diff_fail);
         printf("\n\n");
         return TRUE;
     }
-
     printf("Your test score was %d. Difference is %d points.\nOops. You repeated a school year...   Cheer up! Work harder next time.\n", addDice.sum_dices, addDice.diff_fail);
     printf("\n\n");
 
@@ -54,14 +62,14 @@ void message(){
     printf("Good Bye:)\n");
 }
 
-int main(){
 
+int main(){
     board player = {1, 0, 1};
     dice first = {};
     checkGrade(player);
 
-    while(player.school_grade != 5){
-        int isFlag = shouldPromotion(first);
+    while(player.school_grade != 6){
+        int isFlag = shouldPromotion(first, player);
         updateGrade(&player, isFlag);
         checkGrade(player);
     }
