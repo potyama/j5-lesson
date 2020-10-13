@@ -4,7 +4,7 @@ import numpy as np
 def jacobi_method(A, b):
     # 線形連立方程式をヤコビ法で解く
     x_old = np.empty_like(b)
-    err = 1e12
+    err = 1e20
 
     D = np.diag(A)
     R = A - np.diagflat(D)
