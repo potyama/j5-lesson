@@ -14,6 +14,18 @@
 int main(int argc, char *argv[]) {
     imgdata idata;
 
+    double h[3][3] = {
+        {1.0, 0.0, -1.0},
+        {2.0, 0.0, -2.0},
+        {1.0, 0.0, -1.0},
+    };
+
+    double w[3][3] = {
+        {1.0, 2.0, 1.0},
+        {0.0, 0.0, 0.0},
+        {-1.0, -2.0, -1.0},
+    };
+
   // 例題プログラム
   // 　BMPファイルをコピーするプログラム
   //
@@ -29,29 +41,41 @@ int main(int argc, char *argv[]) {
         if (readBMPfile(argv[1], &idata) > 0)
             printf("指定コピー元ファイル%sが見つかりません\n",argv[1]);
         else {
-        /* 課題9 : 入力画像を平均値フィルタ処理するプログラム */
-            for(int y = 0; y < idata.height; y++){
-                for(int x = 0; x < idata.width; x++){
-                    int check = 0;
-                    double sum_data = 0;
+
+            int hist[256];
+            for(int i=0; i<idata.height; i++){
+                for(int j=0; j<idata.width; j++){
+                    hist[idata.source[RED][j][i]];
+                }
+            }
+
+        /* 課題12 : 入力画像をSobelフィルタするプログラム */
+            for(int y = 1; y < idata.height-1; y++){
+                for(int x = 0; x < idata.width-1; x++){
+                    double fx = 0;
+                    double fy = 0;
+                    double N = 3;
 
                     for(int j = 0;j < N; j++){
                         for(int i = 0; i < N; i++){
                             int x_check = i - (N-1)/2;
                             int y_check = j - (N-1)/2;
+
+                            int sum_data = 0;
                             if(y + y_check < 0 || y + y_check >= idata.height || x + x_check < 0 || x + x_check >= idata.width){
-                                check++;
-                                continue;
-                            }
-                            if(x_check == 0 && y_check == 0){
-                                sum_data += idata.source[RED][y + y_check][x + x_check] * n;
+                                sum_data = 0;
                             }else{
-                                sum_data += idata.source[RED][y + y_check][x + x_check];
+                                sum_data = idata.source[RED][y + y_check][x + x_check];
                             }
-                        }
+
+                            fx += sum_data * h[j][i];
+                            fy += sum_data * w[j][i];
+                            }
                     }
-                    int tmp_N = (N*N - check)-1.0;
-                    double result = sum_data / (tmp_N + n);
+                    double result = sqrt(pow(fx, 2) + pow(fy, 2));
+                    if(result > 255){
+                        result = 255;
+                    }
                     idata.results[RED][y][x] = result;
                     idata.results[GREEN][y][x] = result;
                     idata.results[BLUE][y][x] = result;
