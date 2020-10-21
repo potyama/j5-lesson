@@ -2,19 +2,17 @@ import numpy as np
 
 
 def jacobi_method(A, b):
-    # 線形連立方程式をヤコビ法で解く
-    x_old = np.empty_like(b)
-    err = 1e20
-
     D = np.diag(A)
-    R = A - np.diagflat(D)
+    R = A - np.diag(D)
+    X = np.full(len(b), 0.)
+    n = 1000
 
-    while err > 1e-7:
-        x = (b-np.dot(R, x_old))/D
-        err = np.linalg.norm(x-x_old)/np.linalg.norm(x)
-        x_old = x
-
-    return x
+    for i in range(n):
+        X1 = (b - np.dot(R, X)) / D
+        if np.fabs((X1 - X) / X1).sum() < 1e20:
+            print(i)
+            return X1
+        X = X1
 
 A = np.array([[7, 1, 10],
               [1, 8, 3],
