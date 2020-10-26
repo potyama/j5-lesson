@@ -14,7 +14,7 @@ def gauss_seidel(A, b):
             S = X[j]
             X[j] = (b[j] - np.dot(R[j], X)) / D[j]
             err += abs((X[j] - S) / X[j])
-            if err < 1e-07:
+            if err < 1e20:
                 return X
 
 A = np.array([[7, 1, 10],

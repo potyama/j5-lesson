@@ -5,12 +5,11 @@ def jacobi_method(A, b):
     D = np.diag(A)
     R = A - np.diag(D)
     X = np.full(len(b), 0.)
-    n = 1000
+    n = 70
 
     for i in range(n):
         X1 = (b - np.dot(R, X)) / D
         if np.fabs((X1 - X) / X1).sum() < 1e20:
-            print(i)
             return X1
         X = X1
 
