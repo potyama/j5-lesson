@@ -30,9 +30,9 @@ int shouldPromotion(dice addDice, board player){
         int a = ((rand()% 10 * player.school_grade) + 1);
         int b = ((rand()% 10 * player.school_grade) + 1);
         int c;
-       printf("%d + %d = ?\n", a, b);
-       scarf("%d", &c);
-       if(a + b == c)cnt++;
+        printf("%d + %d = ?\n", a, b);
+        scanf("%d", &c);
+        if(a + b == c)cnt++;
     }
 
     addDice.sum_dices = cnt * 10;
