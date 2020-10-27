@@ -2,7 +2,9 @@
 *.exe
 *.out
 *.json
+*.pyc
 
 /venv
 /.idea
 /.vscode
+/__pycache__
