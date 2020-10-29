@@ -51,25 +51,30 @@ import cgi
 import numpy as np
 f = cgi.FieldStorage()
 
-mat1_1 = f.getfirst("mat1_1", "1")
-mat1_2 = f.getfirst("mat1_2", "1")
-mat1_3 = f.getfirst("mat1_3", "1")
-mat1_4 = f.getfirst("mat1_4", "1")
-mat1_5 = f.getfirst("mat1_5", "1")
-mat1_6 = f.getfirst("mat1_6", "1")
-mat1_7 = f.getfirst("mat1_7", "1")
-mat1_8 = f.getfirst("mat1_8", "1")
-mat1_9 = f.getfirst("mat1_9", "1")
+for i in range(9):
+    "mat1_" + str(i) = int(f.getfirst("mat1_" + str(i), "1"))
 
-mat2_1 = f.getfirst("mat2_1", "1")
-mat2_2 = f.getfirst("mat2_2", "1")
-mat2_3 = f.getfirst("mat2_3", "1")
-mat2_4 = f.getfirst("mat2_4", "1")
-mat2_5 = f.getfirst("mat2_5", "1")
-mat2_6 = f.getfirst("mat2_6", "1")
-mat2_7 = f.getfirst("mat2_7", "1")
-mat2_8 = f.getfirst("mat2_8", "1")
-mat2_9 = f.getfirst("mat2_9", "1")
+"""
+mat1_1 = int(f.getfirst("mat1_1", "1"))
+mat1_2 = int(f.getfirst("mat1_2", "1"))
+mat1_3 = int(f.getfirst("mat1_3", "1"))
+mat1_4 = int(f.getfirst("mat1_4", "1"))
+mat1_5 = int(f.getfirst("mat1_5", "1"))
+mat1_6 = int(f.getfirst("mat1_6", "1"))
+mat1_7 = int(f.getfirst("mat1_7", "1"))
+mat1_8 = int(f.getfirst("mat1_8", "1"))
+mat1_9 = int(f.getfirst("mat1_9", "1"))
+
+mat2_1 = int(f.getfirst("mat2_1", "1"))
+mat2_2 = int(f.getfirst("mat2_2", "1"))
+mat2_3 = int(f.getfirst("mat2_3", "1"))
+mat2_4 = int(f.getfirst("mat2_4", "1"))
+mat2_5 = int(f.getfirst("mat2_5", "1"))
+mat2_6 = int(f.getfirst("mat2_6", "1"))
+mat2_7 = int(f.getfirst("mat2_7", "1"))
+mat2_8 = int(f.getfirst("mat2_8", "1"))
+mat2_9 = int(f.getfirst("mat2_9", "1"))
+"""
 
 arr1 = np.array([[mat1_1, mat1_2, mat1_3],
                  [mat1_4, mat1_5, mat1_6],
@@ -79,13 +84,13 @@ arr2 = np.array([[mat2_1, mat2_2, mat2_3],
                  [mat2_4, mat2_5, mat2_6],
                  [mat2_7, mat2_8, mat2_9]], dtype=object)
 
+
 if f.getfirst("plus"):
     result = arr1 + arr2
 elif f.getfirst("times"):
-    result = arr1 * arr2
+    result = np.dot(arr1, arr2)
+
 else:
     result = 0
 
-
-
-print(html % (mat1_1, mat1_2, mat1_3, mat1_4, mat1_5, mat1_6, mat1_7, mat1_8, mat1_9, mat2_1, mat2_2, mat2_3, mat2_4, mat2_5, mat2_6, mat2_7, mat2_8, mat2_9,result))
+print(html % (mat1_1, mat1_2, mat1_3, mat1_4, mat1_5, mat1_6, mat1_7, mat1_8, mat1_9, mat2_1, mat2_2, mat2_3, mat2_4, mat2_5, mat2_6, mat2_7, mat2_8, mat2_9, result))
