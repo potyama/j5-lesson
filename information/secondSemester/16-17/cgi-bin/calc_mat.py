@@ -51,17 +51,6 @@ import cgi
 import numpy as np
 f = cgi.FieldStorage()
 
-arr = list()
-for i in range(2):
-    arr.append(list())
-    for j in range(9):
-        arr[i][j] = int(f.getfirst(f"mat{i+1}_{j+1}", "1"))
-
-
-mat1 = np.matrix(np.reshape(arr[0], (3, 3)))
-mat2 = np.matrix(np.reshape(arr[1], (3, 3)))
-
-"""
 mat1_1 = int(f.getfirst("mat1_1", "1"))
 mat1_2 = int(f.getfirst("mat1_2", "1"))
 mat1_3 = int(f.getfirst("mat1_3", "1"))
@@ -82,22 +71,22 @@ mat2_7 = int(f.getfirst("mat2_7", "1"))
 mat2_8 = int(f.getfirst("mat2_8", "1"))
 mat2_9 = int(f.getfirst("mat2_9", "1"))
 
-
-arr1 = np.array([[mat1_1, mat1_2, mat1_3],
+arr1 = np.matrix(np.array([[mat1_1, mat1_2, mat1_3],
                  [mat1_4, mat1_5, mat1_6],
-                 [mat1_7, mat1_8, mat1_9]], dtype=object)
+                 [mat1_7, mat1_8, mat1_9]], dtype=object))
 
-arr2 = np.array([[mat2_1, mat2_2, mat2_3],
+arr2 = np.matrix(np.array([[mat2_1, mat2_2, mat2_3],
                  [mat2_4, mat2_5, mat2_6],
-                 [mat2_7, mat2_8, mat2_9]], dtype=object)
-"""
+                 [mat2_7, mat2_8, mat2_9]], dtype=object))
+
 
 if f.getfirst("plus"):
-    result = mat1 + mat2
+    result = arr1 + arr2
 elif f.getfirst("times"):
-    result = np.dot(mat1, mat2)
+    result = np.dot(arr1, arr2)
 
 else:
     result = 0
+
 
 print(html % (mat1_1, mat1_2, mat1_3, mat1_4, mat1_5, mat1_6, mat1_7, mat1_8, mat1_9, mat2_1, mat2_2, mat2_3, mat2_4, mat2_5, mat2_6, mat2_7, mat2_8, mat2_9, result))
