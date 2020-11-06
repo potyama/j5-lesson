@@ -2,30 +2,27 @@
 #include <stdlib.h>
 #include <math.h>
 
-#ifndef DEF_H
-
 #include "def.h"
-#define DEF_H
-
-#endif
 #include "var.h"
+
 #include "bmpfile.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     imgdata idata;
-
-    double h[3][3] = {
-        {1.0, 0.0, -1.0},
-        {2.0, 0.0, -2.0},
-        {1.0, 0.0, -1.0},
+    char h[9] = {
+        -1, 0, 1,
+        -2, 0, 2,
+        -1, 0, 1
     };
 
-    double w[3][3] = {
-        {1.0, 2.0, 1.0},
-        {0.0, 0.0, 0.0},
-        {-1.0, -2.0, -1.0},
+    char w[9] = {
+        -1, -2, -1,
+        0, 0, 0,
+        1, 2, 1,
     };
 
+    int hist[256] = {};
   // 例題プログラム
   // 　BMPファイルをコピーするプログラム
   //
@@ -41,48 +38,46 @@ int main(int argc, char *argv[]) {
         if (readBMPfile(argv[1], &idata) > 0)
             printf("指定コピー元ファイル%sが見つかりません\n",argv[1]);
         else {
-
-            int hist[256];
-            for(int i=0; i<idata.height; i++){
-                for(int j=0; j<idata.width; j++){
-                    hist[idata.source[RED][j][i]];
+            /* 課題6 : 入力画像を根変換するプログラム */
+            for (int y = 1; y < idata.height-1; y++){
+                for (int x = 1; x < idata.width-1; x++){
+                    double sum=0, sum_W=0, sum_H = 0;
+                    for(int i=0; i < 3; i++){
+                        for(int j=0; j < 3; j++){
+                            sum_H += h[i*3+j] * idata.source[RED][y-1+i][x-1+j];
+                            sum_W += w[i*3+j] * idata.source[RED][y-1+i][x-1+j];
+                        }
+                    }
+                    sum = sqrt(pow(sum_H, 2) + pow(sum_W, 2));
+                    if(sum > 30){
+                        hist[idata.source[RED][y][x]] += sum;
+                    }
+                }
+            }
+            int t, h_max = 0;
+            for(int i = 0; i < 256; i++){
+                if(h_max < hist[i]){
+                    t = i;
+                    h_max = hist[i];
                 }
             }
 
-        /* 課題12 : 入力画像をSobelフィルタするプログラム */
-            for(int y = 1; y < idata.height-1; y++){
-                for(int x = 0; x < idata.width-1; x++){
-                    double fx = 0;
-                    double fy = 0;
-                    double N = 3;
+            for (int y = 0; y < idata.height; y++){
+                for (int x = 0; x < idata.width; x++){
+                    if(idata.source[RED][y][x] >= t){
+                        idata.results[RED][y][x] = 255;
+                        idata.results[GREEN][y][x] = 255;
+                        idata.results[BLUE][y][x] = 255;
 
-                    for(int j = 0;j < N; j++){
-                        for(int i = 0; i < N; i++){
-                            int x_check = i - (N-1)/2;
-                            int y_check = j - (N-1)/2;
-
-                            int sum_data = 0;
-                            if(y + y_check < 0 || y + y_check >= idata.height || x + x_check < 0 || x + x_check >= idata.width){
-                                sum_data = 0;
-                            }else{
-                                sum_data = idata.source[RED][y + y_check][x + x_check];
-                            }
-
-                            fx += sum_data * h[j][i];
-                            fy += sum_data * w[j][i];
-                            }
+                    }else{
+                        idata.results[RED][y][x] = 0;
+                        idata.results[GREEN][y][x] = 0;
+                        idata.results[BLUE][y][x] = 0;
                     }
-                    double result = sqrt(pow(fx, 2) + pow(fy, 2));
-                    if(result > 255){
-                        result = 255;
-                    }
-                    idata.results[RED][y][x] = result;
-                    idata.results[GREEN][y][x] = result;
-                    idata.results[BLUE][y][x] = result;
                 }
             }
+            if (writeBMPfile(argv[2], &idata) > 0)
+                printf("コピー先ファイル%sに保存できませんでした\n",argv[2]);
         }
-        if (writeBMPfile(argv[2], &idata) > 0)
-            printf("コピー先ファイル%sに保存できませんでした\n",argv[2]);
-        }
+    }
 }
