@@ -10,9 +10,7 @@
 int main(int argc, char *argv[])
 {
     imgdata idata;
-    double c;
-    int i,x, y;
-
+    int ave[270][270];
   // 例題プログラム
   // 　BMPファイルをコピーするプログラム
   //
@@ -28,11 +26,39 @@ int main(int argc, char *argv[])
         if (readBMPfile(argv[1], &idata) > 0)
             printf("指定コピー元ファイル%sが見つかりません\n",argv[1]);
         else {
-            int t = 50;
             /* 課題6 : 入力画像を根変換するプログラム */
-            for (y = 0; y < idata.height; y++){
-                for (x = 0; x < idata.width; x++){
-                    if(idata.source[RED][y][x] >= t){
+            for (int y = 0; y < idata.height; y++){
+                for (int x = 0; x < idata.width; x++){
+                    ave[y][x] = 0;
+                    if(x == 0) continue;
+                    int cnt = 0;
+                    for(int i = -3; i <= 3; i++){
+                        for(int j =-3; j <= 3; j++){
+                            if(y+i >= 0 && x+j >= 0 && y+i < idata.height && x+j < idata.width){
+                                ave[y][x] += idata.source[RED][y+i][x+j];
+                                cnt++;
+                            }
+                        }
+                    }
+                    ave[y][x] /= cnt;
+
+                    int dis = 0;
+                    for(int i = -3; i <= 3; i++){
+                        for(int j =-3; j <= 3; j++){
+                            if(y+i >= 0 && x+j >= 0 && y+i < idata.height && x+j < idata.width){
+                                dis += pow(idata.source[RED][y+i][x+j] - ave[y][x], 2);
+                            }
+                        }
+                    }
+                    dis /= cnt;
+                    if(dis < 1000){
+                        ave[y][x] = ave[y][x-1];
+                    }
+                }
+            }
+            for (int y = 0; y < idata.height; y++){
+                for (int x = 0; x < idata.width; x++){
+                    if(idata.source[RED][y][x] >= ave[y][x]){
                         idata.results[RED][y][x] = 255;
                         idata.results[GREEN][y][x] = 255;
                         idata.results[BLUE][y][x] = 255;
