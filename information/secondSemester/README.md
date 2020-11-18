@@ -4,8 +4,8 @@
 python -m http.server --cgi [Port]
 
 # htmlが文字化けするとき。
-<meta>にcharset="utf-8"を追加する。
-<meta charset="utf-8"/>
+```<meta>```にcharset="utf-8"を追加する。
+```<meta charset="utf-8"/>```
 
 # time.strftime()を使ったときにUnicodeEncodeErrorがでたら
 
