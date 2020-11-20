@@ -75,7 +75,23 @@ int main(int argc, char *argv[])
                     idata.cwork[BLUE][y][x] = idata.source[RED][y][x];
                 }
             }
-
+            for(int y = 0; y < idata.height; y++){
+                for(int x = 0; x < idata.width; x++){
+                    if(idata.source[RED][y][x] == BLACKVALUE){
+                        idata.cwork[RED][y][x-1] = BLACKVALUE;
+                        idata.cwork[RED][y-1][x] = BLACKVALUE;
+                        idata.cwork[RED][y+1][x] = BLACKVALUE;
+                        idata.cwork[RED][y][x+1] = BLACKVALUE;
+                    }
+                }
+            }
+            for(int y = 0; y < idata.height; y++){
+                for(int x = 0; x < idata.width; x++){
+                    idata.source[RED][y][x] = idata.cwork[RED][y][x];
+                    idata.source[GREEN][y][x] = idata.cwork[RED][y][x];
+                    idata.source[BLUE][y][x] = idata.cwork[RED][y][x];
+                }
+            }
             for(int y = 0; y < idata.height; y++){
                 for(int x = 0; x < idata.width; x++){
                     if(idata.source[RED][y][x] == WHITEVALUE){
@@ -88,6 +104,30 @@ int main(int argc, char *argv[])
             }
             for(int y = 0; y < idata.height; y++){
                 for(int x = 0; x < idata.width; x++){
+                    idata.source[RED][y][x] = idata.cwork[RED][y][x];
+                    idata.source[GREEN][y][x] = idata.cwork[RED][y][x];
+                    idata.source[BLUE][y][x] = idata.cwork[RED][y][x];
+                }
+            }
+            for(int y = 0; y < idata.height; y++){
+                for(int x = 0; x < idata.width; x++){
+                    if(idata.source[RED][y][x] == WHITEVALUE){
+                        idata.cwork[RED][y][x-1] = WHITEVALUE;
+                        idata.cwork[RED][y-1][x] = WHITEVALUE;
+                        idata.cwork[RED][y+1][x] = WHITEVALUE;
+                        idata.cwork[RED][y][x+1] = WHITEVALUE;
+                    }
+                }
+            }
+            for(int y = 0; y < idata.height; y++){
+                for(int x = 0; x < idata.width; x++){
+                    idata.source[RED][y][x] = idata.cwork[RED][y][x];
+                    idata.source[GREEN][y][x] = idata.cwork[RED][y][x];
+                    idata.source[BLUE][y][x] = idata.cwork[RED][y][x];
+                }
+            }
+            for(int y = 0; y < idata.height; y++){
+                for(int x = 0; x < idata.width; x++){
                     if(idata.source[RED][y][x] == BLACKVALUE){
                         idata.cwork[RED][y][x-1] = BLACKVALUE;
                         idata.cwork[RED][y-1][x] = BLACKVALUE;
@@ -96,7 +136,6 @@ int main(int argc, char *argv[])
                     }
                 }
             }
-
             for(int y = 0; y < idata.height; y++){
                 for(int x = 0; x < idata.width; x++){
                     idata.results[RED][y][x] = idata.cwork[RED][y][x];
