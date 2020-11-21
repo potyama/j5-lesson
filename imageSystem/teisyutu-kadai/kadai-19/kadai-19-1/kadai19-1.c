@@ -7,45 +7,52 @@
 
 #include "bmpfile.h"
 
-/*
-膨張
-void dilation(imgdata idata){
-    for(int y = 0; y < idata.height; y++){
-        for(int x = 0; x < idata.width; x++){
-            if(idata.source[RED][y][x] == BLACKVALUE){
-                idata.cwork[RED][y][x-1] = BLACKVALUE;
-                idata.cwork[RED][y-1][x] = BLACKVALUE;
-                idata.cwork[RED][y+1][x] = BLACKVALUE;
-                idata.cwork[RED][y][x+1] = BLACKVALUE;
-            }
+void setUp(imgdata *idata){
+    for(int y = 0; y < idata->height; y++){
+        for(int x = 0; x < idata->width; x++){
+            idata->cwork[RED][y][x] = idata->source[RED][y][x];
+            idata->cwork[GREEN][y][x] = idata->source[RED][y][x];
+            idata->cwork[BLUE][y][x] = idata->source[RED][y][x];
         }
     }
 }
-収縮
-void erosion(imgdata idata){
-    for(int y = 0; y < idata.height; y++){
-        for(int x = 0; x < idata.width; x++){
-            if(idata.source[RED][y][x] == WHITEVALUE){
-                idata.cwork[RED][y][x-1] = WHITEVALUE;
-                idata.cwork[RED][y-1][x] = WHITEVALUE;
-                idata.cwork[RED][y+1][x] = WHITEVALUE;
-                idata.cwork[RED][y][x+1] = WHITEVALUE;
 
+void swapArr(imgdata *idata){
+    for(int y = 0; y < idata->height; y++){
+        for(int x = 0; x < idata->width; x++){
+            idata->source[RED][y][x] = idata->cwork[RED][y][x];
+            idata->source[GREEN][y][x] = idata->cwork[RED][y][x];
+            idata->source[BLUE][y][x] = idata->cwork[RED][y][x];
+        }
+    }
+}
+
+//膨張
+void dilation(imgdata *idata){
+    for(int y = 0; y < idata->height; y++){
+        for(int x = 0; x < idata->width; x++){
+            if(idata->source[RED][y][x] == BLACKVALUE){
+                idata->cwork[RED][y][x-1] = BLACKVALUE;
+                idata->cwork[RED][y-1][x] = BLACKVALUE;
+                idata->cwork[RED][y+1][x] = BLACKVALUE;
+                idata->cwork[RED][y][x+1] = BLACKVALUE;
             }
         }
     }
 }
-デバッグ用
-void check(imgdata idata){
-    for(int y = 0; y < idata.height; y++){
-        for(int x = 0; x < idata.width; x++){
-            if(idata.source[RED][y][x] != idata.cwork[RED][y][x]){
-                printf("NG![%d][%d]\n", y, x);
+//収縮
+void erosion(imgdata *idata){
+    for(int y = 0; y < idata->height; y++){
+        for(int x = 0; x < idata->width; x++){
+            if(idata->source[RED][y][x] == WHITEVALUE){
+                idata->cwork[RED][y][x-1] = WHITEVALUE;
+                idata->cwork[RED][y-1][x] = WHITEVALUE;
+                idata->cwork[RED][y+1][x] = WHITEVALUE;
+                idata->cwork[RED][y][x+1] = WHITEVALUE;
             }
         }
     }
 }
-*/
 
 int main(int argc, char *argv[])
 {
@@ -68,74 +75,21 @@ int main(int argc, char *argv[])
         if (readBMPfile(argv[1], &idata) > 0)
             printf("指定コピー元ファイル%sが見つかりません\n",argv[1]);
         else {
-            for(int y = 0; y < idata.height; y++){
-                for(int x = 0; x < idata.width; x++){
-                    idata.cwork[RED][y][x] = idata.source[RED][y][x];
-                    idata.cwork[GREEN][y][x] = idata.source[RED][y][x];
-                    idata.cwork[BLUE][y][x] = idata.source[RED][y][x];
-                }
-            }
-            for(int y = 0; y < idata.height; y++){
-                for(int x = 0; x < idata.width; x++){
-                    if(idata.source[RED][y][x] == BLACKVALUE){
-                        idata.cwork[RED][y][x-1] = BLACKVALUE;
-                        idata.cwork[RED][y-1][x] = BLACKVALUE;
-                        idata.cwork[RED][y+1][x] = BLACKVALUE;
-                        idata.cwork[RED][y][x+1] = BLACKVALUE;
-                    }
-                }
-            }
-            for(int y = 0; y < idata.height; y++){
-                for(int x = 0; x < idata.width; x++){
-                    idata.source[RED][y][x] = idata.cwork[RED][y][x];
-                    idata.source[GREEN][y][x] = idata.cwork[RED][y][x];
-                    idata.source[BLUE][y][x] = idata.cwork[RED][y][x];
-                }
-            }
-            for(int y = 0; y < idata.height; y++){
-                for(int x = 0; x < idata.width; x++){
-                    if(idata.source[RED][y][x] == WHITEVALUE){
-                        idata.cwork[RED][y][x-1] = WHITEVALUE;
-                        idata.cwork[RED][y-1][x] = WHITEVALUE;
-                        idata.cwork[RED][y+1][x] = WHITEVALUE;
-                        idata.cwork[RED][y][x+1] = WHITEVALUE;
-                    }
-                }
-            }
-            for(int y = 0; y < idata.height; y++){
-                for(int x = 0; x < idata.width; x++){
-                    idata.source[RED][y][x] = idata.cwork[RED][y][x];
-                    idata.source[GREEN][y][x] = idata.cwork[RED][y][x];
-                    idata.source[BLUE][y][x] = idata.cwork[RED][y][x];
-                }
-            }
-            for(int y = 0; y < idata.height; y++){
-                for(int x = 0; x < idata.width; x++){
-                    if(idata.source[RED][y][x] == WHITEVALUE){
-                        idata.cwork[RED][y][x-1] = WHITEVALUE;
-                        idata.cwork[RED][y-1][x] = WHITEVALUE;
-                        idata.cwork[RED][y+1][x] = WHITEVALUE;
-                        idata.cwork[RED][y][x+1] = WHITEVALUE;
-                    }
-                }
-            }
-            for(int y = 0; y < idata.height; y++){
-                for(int x = 0; x < idata.width; x++){
-                    idata.source[RED][y][x] = idata.cwork[RED][y][x];
-                    idata.source[GREEN][y][x] = idata.cwork[RED][y][x];
-                    idata.source[BLUE][y][x] = idata.cwork[RED][y][x];
-                }
-            }
-            for(int y = 0; y < idata.height; y++){
-                for(int x = 0; x < idata.width; x++){
-                    if(idata.source[RED][y][x] == BLACKVALUE){
-                        idata.cwork[RED][y][x-1] = BLACKVALUE;
-                        idata.cwork[RED][y-1][x] = BLACKVALUE;
-                        idata.cwork[RED][y+1][x] = BLACKVALUE;
-                        idata.cwork[RED][y][x+1] = BLACKVALUE;
-                    }
-                }
-            }
+            /* 課題19-1 : 2値画像を4近傍で膨張->収縮->収縮->膨張するプログラム */
+
+            setUp(&idata);
+
+            dilation(&idata);
+            swapArr(&idata);
+
+            erosion(&idata);
+            swapArr(&idata);
+
+            erosion(&idata);
+            swapArr(&idata);
+
+            dilation(&idata);
+
             for(int y = 0; y < idata.height; y++){
                 for(int x = 0; x < idata.width; x++){
                     idata.results[RED][y][x] = idata.cwork[RED][y][x];
@@ -143,7 +97,6 @@ int main(int argc, char *argv[])
                     idata.results[BLUE][y][x] = idata.cwork[RED][y][x];
                 }
             }
-            /* 課題6 : 入力画像を根変換するプログラム */
             if (writeBMPfile(argv[2], &idata) > 0)
             printf("コピー先ファイル%sに保存できませんでした\n",argv[2]);
         }
