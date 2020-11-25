@@ -44,8 +44,8 @@ signal = np.random.choice([-1, 1], np.random.choice([1024, 1028], 1))
 
 #1
 signal_psk = PSK(signal)
-#Plot(signal_psk)
-#Plot(Spectre(signal_psk))
+Plot(signal_psk)
+Plot(Spectre(signal_psk))
 
 #2
 pn = []
@@ -53,12 +53,11 @@ for _ in range(len(signal_psk)):
     pn.append(random.choice([-1, 1]))
 
 signal_pn = PN(signal_psk, pn)
-#Plot(signal_pn)
-#Plot(Spectre(signal_pn))
+Plot(signal_pn)
+Plot(Spectre(signal_pn))
 
 #3
 rev_signal_pn = PN(signal_pn, pn)
-#Plot(rev_signal_pn)
-#Plot(Spectre(rev_signal_pn))
-
+Plot(rev_signal_pn)
+Plot(Spectre(rev_signal_pn))
 
