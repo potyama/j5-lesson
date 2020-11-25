@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
             fprintf(fp, "j16432\n");
-            /* 課題6 : 入力画像を根変換するプログラム */
+            /* 課題20-1 : 入力画像をランレングス表現で圧縮するプログラム */
             for(int y = idata.height-1; y >= 0; y--){
                 for(int x = 0; x < idata.width; x++){
                     if(!flag){

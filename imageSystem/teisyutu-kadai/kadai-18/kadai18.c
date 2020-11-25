@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
         if (readBMPfile(argv[1], &idata) > 0)
             printf("指定コピー元ファイル%sが見つかりません\n",argv[1]);
         else {
-            /* 課題6 : 入力画像を根変換するプログラム */
+            /* 課題18 : 入力画像を微分ヒストグラム法をしきい値で決めて2値化するプログラム */
             for (int y = 1; y < idata.height-1; y++){
                 for (int x = 1; x < idata.width-1; x++){
                     double sum=0, sum_W=0, sum_H = 0;
@@ -68,7 +68,6 @@ int main(int argc, char *argv[])
                         idata.results[RED][y][x] = 255;
                         idata.results[GREEN][y][x] = 255;
                         idata.results[BLUE][y][x] = 255;
-
                     }else{
                         idata.results[RED][y][x] = 0;
                         idata.results[GREEN][y][x] = 0;
