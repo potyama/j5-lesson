@@ -11,7 +11,7 @@ double pi(int n_intervals, int np, int my_rank){
 
   step = 1.0 / n_intervals;
   sum = 0.0;
-  int start = (my_rank+1) * (n_intervals/np);
+  int start = (my_rank) * (n_intervals/np);
   int end = (my_rank+1) * (n_intervals/np);
 
   for (i = start; i < end;i++){
@@ -43,13 +43,14 @@ int main(int argc, char **argv)
     p = pi(n_intervals, np, my_rank);
     MPI_Send(&p, 1, MPI_DOUBLE, 0, 1, MPI_COMM_WORLD);
   }else{
-    p = pi(n_intervals, np, my_rank);
+    p_total = pi(n_intervals, np, my_rank);
     for (int i = 1;i < np;i++){
+      MPI_Recv(&p, 1, MPI_DOUBLE, MPI_ANY_SOURCE, 1, MPI_COMM_WORLD, &status);
       p_total += p;
-      MPI_Recv(&p, 1, MPI_DOUBLE, 0, 1, MPI_COMM_WORLD, &status);
     }
+    printf("pi = %.30f\n",p_total/n_intervals);
+
   }
-  printf("pi = %.30f\n",p/n_intervals);
   MPI_Finalize();
 
 }
