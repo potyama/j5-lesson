@@ -3,7 +3,7 @@ import numpy as np
 def f(x):
     return 4*(x ** 3) - 10*(x ** 2) + 4*x + 5
 
-N = 100000
+N = 100
 a = 0
 b = 2
 h = (b-a)/N
