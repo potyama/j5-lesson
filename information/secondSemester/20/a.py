@@ -58,18 +58,18 @@ def Plot(_signal):
     plt.plot(range(len(_signal)), _signal)
     plt.show()
 
-signal = np.random.choice([0, 1], np.random.choice([10, 10], 1))
-signal2 = secrets.token_hex(10)
+signal = np.random.choice([0, 1], np.random.choice([30, 30], 1))
+signal2 = secrets.token_hex(30)
 signal_manchester = Manchester(signal)
 signal_4b5b= coding_4b5b(signal2)
 
-print(signal)
+#print(signal)
 
 
 print(signal_manchester)
 Plot(signal_manchester)
 
-print(signal2)
+#print(signal2)
 
 print(signal_4b5b)
 Plot(signal_4b5b)
